@@ -44,3 +44,18 @@ FROM employee
 WHERE dno = 5
 ORDER BY lname
 LIMIT 3
+
+-- Q8
+SELECT COUNT(*) AS 'Number of essn''s working on project with name ProductY'
+FROM works_on
+WHERE pno = (SELECT pnumber
+            FROM project
+            WHERE pname = 'ProductY')
+
+-- Q9
+SELECT COUNT(*)
+FROM dependent
+WHERE relationship != 'spouse'
+AND essn = (SELECT ssn 
+            FROM employee
+            WHERE fname = 'John')
