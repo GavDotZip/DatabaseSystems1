@@ -37,3 +37,10 @@ WHERE (SELECT ssn
         FROM employee
         WHERE fname = 'Franklin' AND minit = 'T' AND lname = 'Wong')
             AND relationship != 'spouse'
+
+-- Q7
+SELECT salary, CONCAT(fname, ' ', lname) AS Name
+FROM employee
+WHERE dno = 5
+ORDER BY lname
+LIMIT 3
