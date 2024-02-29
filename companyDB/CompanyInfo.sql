@@ -1,6 +1,9 @@
+-- Disable NO_AUTO_VALUE_ON_ZERO mode and set time_zone to +00:00
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+-- Create tables for DB
 CREATE TABLE `department` (
   `dnumber` int(20) NOT NULL PRIMARY KEY,
   `dname` varchar(50) DEFAULT NULL,
@@ -51,7 +54,7 @@ CREATE TABLE `works_on` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-
+-- Insert data into the created tables
 INSERT INTO `department` (`dnumber`, `dname`, `mgrssn`, `mgrstartdate`) VALUES
 (1, 'Headquarters', 888665555, '2019-06-19'),
 (4, 'Administration', 987654321, '2015-01-01'),
@@ -107,3 +110,31 @@ INSERT INTO `works_on` (`essn`, `pno`, `hours`) VALUES
 (987987987, 10, 35),
 (987987987, 30, 5),
 (999887777, 30, 30);
+
+
+-- Add indexes and constraints for created tables
+ALTER TABLE `department`
+  ADD KEY `mgrssn` (`mgrssn`),
+  ADD CONSTRAINT `department_ibfk_2` FOREIGN KEY (`mgrssn`) REFERENCES `employee` (`ssn`);
+
+ALTER TABLE `dependent`
+  ADD CONSTRAINT `dependent_ibfk_1` FOREIGN KEY (`essn`) REFERENCES `employee` (`ssn`);
+
+ALTER TABLE `dept_locations`
+  ADD KEY `dnumber` (`dnumber`),
+  ADD CONSTRAINT `FK_dept_locations_dnumber` FOREIGN KEY (`dnumber`) REFERENCES `department` (`dnumber`);
+
+ALTER TABLE `employee`
+  ADD KEY `FK_employee_superssn` (`superssn`),
+  ADD KEY `FK_employee_department_dno` (`dno`),
+  ADD CONSTRAINT `FK_employee_department_dno` FOREIGN KEY (`dno`) REFERENCES `department` (`dnumber`),
+  ADD CONSTRAINT `FK_employee_superssn` FOREIGN KEY (`superssn`) REFERENCES `employee` (`ssn`);
+
+ALTER TABLE `project`
+  ADD KEY `dnum` (`dnum`),
+  ADD CONSTRAINT `project_ibfk_1` FOREIGN KEY (`dnum`) REFERENCES `department` (`dnumber`);
+
+ALTER TABLE `works_on`
+  ADD KEY `pno` (`pno`),
+  ADD CONSTRAINT `FK1_works_on_essn` FOREIGN KEY (`essn`) REFERENCES `employee` (`ssn`),
+  ADD CONSTRAINT `works_on_ibfk_1` FOREIGN KEY (`pno`) REFERENCES `project` (`pnumber`);
