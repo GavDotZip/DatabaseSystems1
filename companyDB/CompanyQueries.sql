@@ -21,3 +21,19 @@ Distinct remove duplicates
 SELECT CONCAT(fname, ' ', minit, ' ', lname) AS name
 FROM employee
 WHERE address LIKE '%Houston%'
+
+-- Q5
+SELECT CONCAT(fname, ' ', lname) AS 'John B Smith''s) Co-workers'
+FROM employee
+WHERE fname != 'John' AND  minit != 'B' AND lname != 'Smith' #exclude John B Smith
+AND dno =  (SELECT dno
+            FROM employee
+            WHERE fname = 'John' AND minit = 'B' AND lname = 'Smith')
+
+-- Q6
+SELECT dependent_name, bdate
+FROM dependent
+WHERE (SELECT ssn
+        FROM employee
+        WHERE fname = 'Franklin' AND minit = 'T' AND lname = 'Wong')
+            AND relationship != 'spouse'
