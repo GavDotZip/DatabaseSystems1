@@ -1,0 +1,10 @@
+- Fully create movie database
+- Insert Data into movie database
+
+Information is held on movies, actors and directors in six tables:
+    movie(mID, title, relYear, category, runTime, studioName, description, rating)
+    actor(aID, fName, surname, nationality, gender)
+    director(dID, dfName, dSurname)
+    genres(movieID, genre)
+    directs(movieID, directorID)
+    stars(movieID, actorID)
