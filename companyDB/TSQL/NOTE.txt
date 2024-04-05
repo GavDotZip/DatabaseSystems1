@@ -1,0 +1,6 @@
+- SET ANSI_PADDING ON, SET ANSI_WARNINGS ON, SET CONCAT_NULL_YIELDS_NULL ON, SET QUOTED_IDENTIFIER ON, and SET NUMERIC_ROUNDABORT OFF are general settings, equivalent to SQL_MODE changes.
+- SET TIMEZONE OFFSET '+00:00' sets the time zone offset to UTC.
+- Data types in T-SQL are a bit different from MySQL, so I adjusted them accordingly. For example, bigint is bigint, varchar is varchar, and double is float.
+- Removed the ENGINE and CHARSET declarations, as they are not relevant in SQL Server.
+- Removed the backticks (`) around identifiers, as they are not used in T-SQL.
+- Adjusted the primary key declarations according to T-SQL syntax.
